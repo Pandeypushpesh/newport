@@ -111,9 +111,10 @@ export const resumeData: ResumeData = {
   education: [
     {
       title: "B.Tech CSE",
-      institution: "Gurukula Kangri University",
+      institution: "",
       detail: "CGPA 8.60"
     },
+    
     {
       title: "Class 12",
       institution: "CBSE",
@@ -128,7 +129,7 @@ export const resumeData: ResumeData = {
   certifications: [
     "IBM SkillsBuild: Advanced DSA & Algorithms",
     "IBM Cloud: Application Development Foundations",
-    "AWS Academy Cloud Foundations",
+    
     "Google Cloud Career Practitioner Program",
     "Infosys Springboard: MERN Stack Development"
   ]

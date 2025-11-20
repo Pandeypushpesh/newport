@@ -49,17 +49,43 @@ export const POST = async (request: NextRequest) => {
   }
 
   try {
+    // 📌 1. Email TO YOU (Portfolio Owner)
     await transporter().sendMail({
-      from: `"Portfolio Contact" <${process.env.SMTP_USER}>`,
+      from: `"Pushpesh Portfolio" <${process.env.SMTP_USER}>`,
       to: process.env.CONTACT_TO,
-      subject: `New message from ${name}`,
-      replyTo: email,
-      text: `
-Name: ${name}
-Email: ${email}
+      replyTo: `${name} <${email}>`,
+      subject: `New Message from ${name}`,
+      html: `
+        <div style="font-family: Arial, sans-serif; padding: 12px;">
+          <h2>New Portfolio Message</h2>
+          <p><strong>Name:</strong> ${name}</p>
+          <p><strong>Email:</strong> ${email}</p>
+          <p><strong>Message:</strong></p>
+          <p>${message.replace(/\n/g, "<br>")}</p>
+        </div>
+      `
+    });
 
-${message}
-      `.trim()
+    // 📌 2. AUTO-REPLY Email TO USER
+    await transporter().sendMail({
+      from: `"Pushpesh Kumar" <${process.env.SMTP_USER}>`,
+      to: email,
+      subject: "Thank you for contacting me!",
+      html: `
+        <div style="font-family: Arial, sans-serif; padding: 16px;">
+          <h2 style="color: #0070f3;">Hi ${name},</h2>
+          <p>
+            Thank you for reaching out! I have received your message and I will
+            personally get back to you soon.
+          </p>
+          <p><strong>Your Message:</strong></p>
+          <p>${message.replace(/\n/g, "<br>")}</p>
+          <br/>
+          <p>Warm regards,</p>
+          <p><strong>Pushpesh Kumar</strong></p>
+          <p>Portfolio Website</p>
+        </div>
+      `
     });
 
     return NextResponse.json({ ok: true });
@@ -68,4 +94,3 @@ ${message}
     return NextResponse.json({ error: "Unable to send message right now." }, { status: 500 });
   }
 };
-
