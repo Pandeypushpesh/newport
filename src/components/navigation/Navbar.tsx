@@ -3,17 +3,9 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-import { cn } from "@/lib/utils";
+import { NAV_LINKS } from "@/lib/navLinks";
 import { resumeData } from "@/lib/resumeData";
-
-const NAV_LINKS = [
-  { label: "Skills", href: "#skills" },
-  { label: "Projects", href: "#projects" },
-  { label: "Education", href: "#education" },
-  { label: "Certifications", href: "#certifications" },
-  { label: "About", href: "#about" },
-  { label: "Contact", href: "#contact" }
-];
+import { cn } from "@/lib/utils";
 
 export const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);

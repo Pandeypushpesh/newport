@@ -1,15 +1,7 @@
 import Link from "next/link";
 
+import { NAV_LINKS } from "@/lib/navLinks";
 import { resumeData } from "@/lib/resumeData";
-
-const NAV_LINKS = [
-  { href: "#skills", label: "Skills" },
-  { href: "#projects", label: "Projects" },
-  { href: "#education", label: "Education" },
-  { href: "#certifications", label: "Certifications" },
-  { href: "#about", label: "About" },
-  { href: "#contact", label: "Contact" }
-];
 
 export const Footer = () => (
   <footer className="relative z-10 border-t border-white/10 mt-20">

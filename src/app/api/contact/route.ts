@@ -1,4 +1,4 @@
-import type { NextRequest } from "next/server";
+import { NextResponse, type NextRequest } from "next/server";
 import nodemailer from "nodemailer";
 
 const REQUIRED_ENV = [
@@ -9,16 +9,11 @@ const REQUIRED_ENV = [
   "CONTACT_TO"
 ] as const;
 
-const validateEnv = () => {
-  const missing = REQUIRED_ENV.filter((key) => !process.env[key]);
-  if (missing.length) {
-    throw new Error(`Missing environment variables: ${missing.join(", ")}`);
-  }
-};
+const missingEnv = () =>
+  REQUIRED_ENV.filter((key) => !process.env[key]);
 
-const transporter = () => {
-  validateEnv();
-  return nodemailer.createTransport({
+const transporter = () =>
+  nodemailer.createTransport({
     host: process.env.SMTP_HOST,
     port: Number(process.env.SMTP_PORT),
     secure: Number(process.env.SMTP_PORT) === 465,
@@ -27,7 +22,9 @@ const transporter = () => {
       pass: process.env.SMTP_PASS
     }
   });
-};
+
+export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
 
 export const POST = async (request: NextRequest) => {
   const body = await request.json();
@@ -37,6 +34,18 @@ export const POST = async (request: NextRequest) => {
 
   if (!name || !email || !message) {
     return Response.json({ error: "All fields are required." }, { status: 400 });
+  }
+
+  const missing = missingEnv();
+  if (missing.length) {
+    console.error("[CONTACT_API_MISSING_ENV]", missing);
+    return NextResponse.json(
+      {
+        error:
+          "Contact service is not configured yet. Please add SMTP credentials."
+      },
+      { status: 503 }
+    );
   }
 
   try {
@@ -53,13 +62,10 @@ ${message}
       `.trim()
     });
 
-    return Response.json({ ok: true });
+    return NextResponse.json({ ok: true });
   } catch (error) {
     console.error("[CONTACT_API_ERROR]", error);
-    return Response.json(
-      { error: "Unable to send message right now." },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Unable to send message right now." }, { status: 500 });
   }
 };
 

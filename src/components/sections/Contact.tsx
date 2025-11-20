@@ -12,9 +12,10 @@ export const Contact = () => {
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    const form = event.currentTarget;
     setState("loading");
     setError(null);
-    const formData = new FormData(event.currentTarget);
+    const formData = new FormData(form);
 
     const payload = {
       name: formData.get("name"),
@@ -36,7 +37,7 @@ export const Contact = () => {
       }
 
       setState("success");
-      event.currentTarget.reset();
+      form.reset();
     } catch (err) {
       setState("error");
       setError(err instanceof Error ? err.message : "Unexpected error occurred.");
