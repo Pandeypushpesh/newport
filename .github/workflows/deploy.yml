@@ -1,0 +1,41 @@
+name: CI & Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    env:
+      VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+      VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+      VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Build
+        run: npm run build
+
+      - name: Pull Vercel Environment
+        run: npx vercel pull --yes --environment=production --token=${{ env.VERCEL_TOKEN }}
+
+      - name: Deploy to Vercel
+        run: |
+          npx vercel build --prod --token=${{ env.VERCEL_TOKEN }}
+          npx vercel deploy --prebuilt --prod --token=${{ env.VERCEL_TOKEN }}
+

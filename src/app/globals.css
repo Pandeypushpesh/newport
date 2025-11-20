@@ -1,0 +1,66 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+  background-color: #050509;
+}
+
+:where(*, *::before, *::after) {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: radial-gradient(circle at top, #111827, #050509);
+  color: rgba(255, 255, 255, 0.85);
+  min-height: 100vh;
+  padding-top: 4.25rem;
+}
+
+.noise-overlay {
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400' viewBox='0 0 400 400'%3E%3Cpath fill='%23ffffff' fill-opacity='0.015' d='M0 0h400v400H0z'/%3E%3C/svg%3E");
+  pointer-events: none;
+  opacity: 0.25;
+  mix-blend-mode: soft-light;
+  z-index: 0;
+}
+
+.rain-layer {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+  will-change: transform;
+}
+
+.rain-drop {
+  position: absolute;
+  width: 1px;
+  height: 120px;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(79, 70, 229, 0.35) 60%,
+    rgba(59, 130, 246, 0.25) 100%
+  );
+  animation: rainFall 2.8s linear infinite;
+  filter: blur(0.3px);
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+}
+
+.rain-drop:nth-child(3n) {
+  animation-duration: 3.6s;
+  opacity: 0.35;
+}
+
+.rain-drop:nth-child(5n) {
+  animation-duration: 4.1s;
+  opacity: 0.25;
+}
+
