@@ -9,6 +9,7 @@ export type Project = {
   tech: string[];
   image: string;
   link?: string;
+  sourceCode?: string;
 };
 
 export type EducationItem = {
@@ -17,10 +18,17 @@ export type EducationItem = {
   detail: string;
 };
 
+export type SocialLink = {
+  platform: string;
+  url: string;
+  icon?: string;
+};
+
 export type ResumeData = {
   name: string;
   role: string;
   summary: string;
+  heroImage?: string;
   hero: {
     primaryCta: {
       label: string;
@@ -35,13 +43,15 @@ export type ResumeData = {
   projects: Project[];
   education: EducationItem[];
   certifications: string[];
+  socialLinks: SocialLink[];
 };
 
 export const resumeData: ResumeData = {
   name: "Pushpesh Kumar",
   role: "Computer Science & Engineering Student (2027) | Full Stack Developer",
   summary:
-    "Enthusiastic and detail-oriented B.Tech CSE (3rd Year) student with strong foundations in DSA, OS, DBMS, CN, and OOPs. Passionate about backend development, scalable systems, and crafting reliable full-stack experiences with React.js, Node.js, and MongoDB.",
+    "I’m Pushpesh Kumar — a CSE student and backend-focused developer who values clarity, responsibility, and honest work. I like building practical, reliable systems and solving problems with clean logic rather than noise. I stay grounded, keep learning, and give my best without overpromising — straightforward, consistent, and professional.",
+  heroImage: "/image.png",
   hero: {
     primaryCta: {
       label: "Download Résumé",
@@ -52,6 +62,7 @@ export const resumeData: ResumeData = {
       href: "#contact"
     }
   },
+
   skills: [
     {
       title: "Languages",
@@ -59,15 +70,7 @@ export const resumeData: ResumeData = {
     },
     {
       title: "MERN",
-      items: [
-        "React.js",
-        "Node.js",
-        "Express.js",
-        "MongoDB",
-        "JWT",
-        "MVC",
-        "CORS"
-      ]
+      items: ["React.js", "Node.js", "Express.js", "MongoDB", "JWT", "MVC", "CORS"]
     },
     {
       title: "Frontend",
@@ -79,7 +82,7 @@ export const resumeData: ResumeData = {
     },
     {
       title: "Core CS",
-      items: ["DSA", "OS", "DBMS", "CN", "OOPs"]
+      items: ["DSA", "OS", "DBMS", "CN", "OOP"]
     },
     {
       title: "Tools",
@@ -90,31 +93,34 @@ export const resumeData: ResumeData = {
       items: ["Problem Solving", "Communication", "Leadership"]
     }
   ],
+
   projects: [
     {
-      title: "Gamez Adda",
+      title: "nkp-Astro",
       description:
-        "Interactive React.js gaming experience that blends engaging UI with performant state management for immersive play sessions.",
+        "Built a fully responsive multi-language website (Hindi/English) for Pandit Ji's spiritual services with modern UI, smooth animations, and devotional theme.",
       tech: ["React.js", "Context API", "Animations"],
-      image: "/projects/gamez-adda.svg",
-      link: "#"
+      image: "/projects/nkpastro.jpg",
+      link: "https://nkpastro.vercel.app/",
+      sourceCode: "https://github.com/Pandeypushpesh/panditji"
     },
     {
       title: "Samyakriti",
       description:
-        "Secure digital contract farming platform that streamlines payments, onboarding modules, and compliance workflows for farmers.",
+        "Developed a full-stack smart farming platform using Next.js 14 and MongoDB with real-time highlights, user authentication, admin console, and modular API architecture.",
       tech: ["MERN Stack", "Payments", "JWT Auth"],
-      image: "/projects/samyakriti.svg",
-      link: "#"
+      image: "/projects/samyak.jpg",
+      link: "https://samyakriti.vercel.app/",
+      sourceCode: "https://github.com/Pandeypushpesh/SamyakritiAgriTech"
     }
   ],
+
   education: [
     {
-      title: "B.Tech CSE",
-      institution: "",
-      detail: "CGPA 8.60"
+      title: "B.Tech",
+      institution: "Computer Science & Engineering",
+      detail: "CGPA: 8.60"
     },
-    
     {
       title: "Class 12",
       institution: "CBSE",
@@ -126,12 +132,26 @@ export const resumeData: ResumeData = {
       detail: "93.2%"
     }
   ],
+
   certifications: [
     "IBM SkillsBuild: Advanced DSA & Algorithms",
     "IBM Cloud: Application Development Foundations",
-    
     "Google Cloud Career Practitioner Program",
     "Infosys Springboard: MERN Stack Development"
+  ],
+
+  socialLinks: [
+    {
+      platform: "GitHub",
+      url: "https://github.com/Pandeypushpesh"
+    },
+    {
+      platform: "LinkedIn",
+      url: "https://www.linkedin.com/in/pushpeshpk/"
+    },
+    {
+      platform: "Instagram",
+      url: "https://www.instagram.com/pushpesh.pk/"
+    }
   ]
 };
-

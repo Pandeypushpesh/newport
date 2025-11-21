@@ -16,16 +16,39 @@ export const Projects = () => (
     </header>
     <div className="grid gap-6 lg:grid-cols-2">
       {resumeData.projects.map((project) => (
-        <Card key={project.title} className="flex flex-col gap-5">
+        <Card key={project.title} className="flex flex-col gap-5 group relative">
           <div className="relative overflow-hidden rounded-none border border-white/10">
             <Image
               src={project.image}
               alt={project.title}
               width={640}
               height={420}
-              className="w-full h-auto object-cover"
+              className="w-full h-auto object-cover transition-opacity duration-300 group-hover:opacity-50"
               priority={project.title === resumeData.projects[0].title}
             />
+            {/* Hover Overlay with Links */}
+            <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-6">
+              {project.link && (
+                <Link
+                  href={project.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-6 py-2 bg-white/20 border border-white/50 text-white text-sm font-semibold uppercase tracking-widest hover:bg-white/30 transition"
+                >
+                  View Live
+                </Link>
+              )}
+              {project.sourceCode && (
+                <Link
+                  href={project.sourceCode}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-6 py-2 bg-white/20 border border-white/50 text-white text-sm font-semibold uppercase tracking-widest hover:bg-white/30 transition"
+                >
+                  Source Code
+                </Link>
+              )}
+            </div>
           </div>
           <div className="space-y-4">
             <div>
@@ -43,17 +66,6 @@ export const Projects = () => (
               ))}
             </div>
           </div>
-          {project.link && (
-            <div>
-              <Link
-                href={project.link}
-                className="text-sm uppercase tracking-[0.3rem] text-white hover:text-white/60 transition inline-flex items-center gap-2"
-              >
-                View Project
-                <span aria-hidden>↗</span>
-              </Link>
-            </div>
-          )}
         </Card>
       ))}
     </div>
